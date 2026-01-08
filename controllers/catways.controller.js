@@ -7,7 +7,15 @@ const Catway = require("../models/Catway");
  */
 exports.list = async (req, res) => {
   const catways = await Catway.find().sort({ catwayNumber: 1 });
-  if (req.accepts("json") && !req.accepts("html")) return res.json(catways);
+
+  // Détection explicite du JSON
+  const wantsJson =
+    req.headers.accept && req.headers.accept.includes("application/json");
+
+  if (wantsJson) {
+    return res.json(catways);
+  }
+
   return res.render("catways/list", { catways });
 };
 
