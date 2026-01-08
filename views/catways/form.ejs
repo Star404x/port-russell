@@ -1,0 +1,37 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+
+<main class="container">
+  <% if (mode === "create") { %>
+    <h1>Créer un catway</h1>
+  <% } else { %>
+    <h1>Modifier l’état (catway <%= catway.catwayNumber %>)</h1>
+  <% } %>
+
+  <% if (error) { %><p class="error"><%= error %></p><% } %>
+
+  <% if (mode === "create") { %>
+    <form method="POST" action="/catways">
+      <label>Numéro</label>
+      <input name="catwayNumber" type="number" min="1" required />
+      <label>Type</label>
+      <select name="catwayType" required>
+        <option value="long">long</option>
+        <option value="short">short</option>
+      </select>
+      <label>État</label>
+      <textarea name="catwayState" required></textarea>
+      <button type="submit">Créer</button>
+    </form>
+  <% } else { %>
+    <form method="POST" action="/catways/<%= catway.catwayNumber %>?_method=PUT">
+      <p><strong>Numéro :</strong> <%= catway.catwayNumber %></p>
+      <p><strong>Type :</strong> <%= catway.catwayType %></p>
+      <label>État</label>
+      <textarea name="catwayState" required><%= catway.catwayState %></textarea>
+      <button type="submit">Enregistrer</button>
+    </form>
+  <% } %>
+</main>
+
+</body></html>

@@ -1,0 +1,25 @@
+<%- include("partials/head") %>
+
+<main class="container">
+  <h1>Port de plaisance — Russell</h1>
+  <p>Application interne de gestion (catways, réservations, utilisateurs) + API privée.</p>
+
+  <% if (typeof error !== "undefined" && error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+
+  <section class="card">
+    <h2>Connexion</h2>
+    <form method="POST" action="/login">
+      <label>Email</label>
+      <input name="email" type="email" required />
+      <label>Mot de passe</label>
+      <input name="password" type="password" required />
+      <button type="submit">Se connecter</button>
+    </form>
+  </section>
+
+  <p><a href="/docs" target="_blank">Voir la documentation de l’API</a></p>
+</main>
+
+</body></html>

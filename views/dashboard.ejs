@@ -1,0 +1,18 @@
+<%- include("partials/head") %>
+<%- include("partials/nav") %>
+
+<main class="container">
+  <h1>Tableau de bord</h1>
+  <p>Connecté : <strong><%= currentUser.username %></strong> — <%= currentUser.email %></p>
+  <p>Date : <%= today.toLocaleDateString("fr-FR") %></p>
+
+  <section class="card">
+    <h2>Accès rapides</h2>
+    <ul>
+      <li><a href="/catways">Gérer les catways</a></li>
+      <li><a href="/docs" target="_blank">Documentation API</a></li>
+    </ul>
+  </section>
+</main>
+
+</body></html>
