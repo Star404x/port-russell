@@ -6,13 +6,13 @@ Application interne de gestion d’un port de plaisance : **authentification**, 
 
 ## Liens (livrable)
 
-- **GitHub** : <LIEN_GITHUB_DU_DEPOT>
+- **GitHub** : https://github.com/Star404x/port-russell
 - **Application déployée** : <LIEN_APP_DEPLOYEE>
 
 ### Compte admin (pour accéder au dashboard)
 
-- **Email** : <EMAIL_ADMIN>
-- **Mot de passe** : <MOT_DE_PASSE_ADMIN>
+- **Email** : admin@port-russell.fr
+- **Mot de passe** : Admin123!
 
 ---
 
@@ -27,7 +27,5 @@ Application interne de gestion d’un port de plaisance : **authentification**, 
 
 1. Cloner le dépôt :
 
-```bash
-git clone <LIEN_GITHUB_DU_DEPOT>
+git clone https://github.com/Star404x/port-russell
 cd port-russell
-```
