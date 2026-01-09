@@ -1,0 +1,38 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+
+<main class="container">
+  <div class="row">
+    <h1>Réservations — Catway <%= catwayNumber %></h1>
+    <a class="btn" href="/catways/<%= catwayNumber %>/reservations/new">+ Nouvelle réservation</a>
+  </div>
+
+  <p><a href="/catways/<%= catwayNumber %>">← Retour au catway</a></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Client</th><th>Bateau</th><th>Début</th><th>Fin</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% reservations.forEach(r => { %>
+        <tr>
+          <td><%= r.clientName %></td>
+          <td><%= r.boatName %></td>
+          <td><%= new Date(r.startDate).toLocaleDateString("fr-FR") %></td>
+          <td><%= new Date(r.endDate).toLocaleDateString("fr-FR") %></td>
+          <td>
+            <a href="/catways/<%= catwayNumber %>/reservations/<%= r._id %>">Détails</a>
+            <a href="/catways/<%= catwayNumber %>/reservations/<%= r._id %>/edit">Modifier</a>
+            <form method="POST" action="/catways/<%= catwayNumber %>/reservations/<%= r._id %>?_method=DELETE" style="display:inline">
+              <button class="link-danger" type="submit">Supprimer</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</main>
+
+</body></html>

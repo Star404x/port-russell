@@ -1,23 +1,16 @@
-<%- include("partials/head") %>
-<%- include("partials/nav") %>
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
 
 <main class="container">
-  <h1>Tableau de bord</h1>
-  <p>Connecté : <strong><%= currentUser.username %></strong> — <%= currentUser.email %></p>
-  <p>Date : <%= today.toLocaleDateString("fr-FR") %></p>
 
-  <section class="card">
-    <h2>Accès rapides</h2>
-    <ul>
-      <li><a href="/catways">Gérer les catways</a></li>
-      <li><a href="/docs" target="_blank">Documentation API</a></li>
-    </ul>
-  </section>
-  <section class="card" style="margin-top:16px;">
-  <h2>Réservations en cours</h2>
+  <div class="row">
+  <h1>Toutes les réservations</h1>
+  <a class="btn" href="/reservations/new">+ Nouvelle réservation</a>
+</div>
 
-  <% if (!activeReservations || activeReservations.length === 0) { %>
-    <p>Aucune réservation en cours aujourd’hui.</p>
+
+  <% if (!reservations || reservations.length === 0) { %>
+    <p>Aucune réservation.</p>
   <% } else { %>
     <table>
       <thead>
@@ -31,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <% activeReservations.forEach(r => { %>
+        <% reservations.forEach(r => { %>
           <tr>
             <td><%= r.catwayNumber %></td>
             <td><%= r.clientName %></td>
@@ -46,8 +39,6 @@
       </tbody>
     </table>
   <% } %>
-</section>
-
 </main>
 
 </body></html>

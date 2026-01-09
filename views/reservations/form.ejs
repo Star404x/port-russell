@@ -1,0 +1,44 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+
+<main class="container">
+  <% if (mode === "create") { %>
+    <h1>Créer une réservation — Catway <%= catwayNumber %></h1>
+  <% } else { %>
+    <h1>Modifier la réservation — Catway <%= catwayNumber %></h1>
+  <% } %>
+
+  <% if (error) { %><p class="error"><%= error %></p><% } %>
+
+  <% const actionBase = `/catways/${catwayNumber}/reservations`; %>
+
+  <% if (mode === "create") { %>
+    <form method="POST" action="<%= actionBase %>">
+      <label>Nom du client</label>
+      <input name="clientName" required value="<%= reservation?.clientName || '' %>" />
+      <label>Nom du bateau</label>
+      <input name="boatName" required value="<%= reservation?.boatName || '' %>" />
+      <label>Date de début</label>
+      <input name="startDate" type="date" required />
+      <label>Date de fin</label>
+      <input name="endDate" type="date" required />
+      <button type="submit">Créer</button>
+    </form>
+  <% } else { %>
+    <form method="POST" action="<%= actionBase %>/<%= reservation._id %>?_method=PUT">
+      <label>Nom du client</label>
+      <input name="clientName" required value="<%= reservation.clientName %>" />
+      <label>Nom du bateau</label>
+      <input name="boatName" required value="<%= reservation.boatName %>" />
+      <label>Date de début</label>
+      <input name="startDate" type="date" required value="<%= new Date(reservation.startDate).toISOString().slice(0,10) %>" />
+      <label>Date de fin</label>
+      <input name="endDate" type="date" required value="<%= new Date(reservation.endDate).toISOString().slice(0,10) %>" />
+      <button type="submit">Enregistrer</button>
+    </form>
+  <% } %>
+
+  <p><a href="/catways/<%= catwayNumber %>/reservations">← Retour</a></p>
+</main>
+
+</body></html>

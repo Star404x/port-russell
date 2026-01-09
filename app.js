@@ -10,7 +10,6 @@ const { connectDB } = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 const catwaysRoutes = require("./routes/catways.routes");
 const { ensureAuth } = require("./middlewares/auth.middleware");
-
 const app = express();
 
 // DB
@@ -47,6 +46,17 @@ app.use(
   })
 );
 
+// Reservations list
+const Reservation = require("./models/Reservation");
+app.get("/reservations", ensureAuth, async (req, res) => {
+  const reservations = await Reservation.find().sort({ startDate: 1 });
+  res.render("reservations/all", { reservations });
+});
+
+app.get("/reservations/new", ensureAuth, (req, res) => {
+  res.render("reservations/form_global", { error: null, reservation: null });
+});
+
 // Expose user to views
 app.use((req, res, next) => {
   res.locals.currentUser = req.session.user || null;
@@ -58,10 +68,32 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-// Dashboard (simple)
-app.get("/dashboard", ensureAuth, (req, res) => {
+// Dashboard
+app.get("/dashboard", ensureAuth, async (req, res) => {
   const today = new Date();
-  res.render("dashboard", { today });
+
+  // Début de journée (pour comparaison stable)
+  const startOfToday = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+  );
+  const endOfToday = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate(),
+    23,
+    59,
+    59,
+    999
+  );
+
+  const activeReservations = await Reservation.find({
+    startDate: { $lte: endOfToday },
+    endDate: { $gte: startOfToday },
+  }).sort({ startDate: 1 });
+
+  res.render("dashboard", { today, activeReservations });
 });
 
 // Docs

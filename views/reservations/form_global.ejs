@@ -1,0 +1,31 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+
+<main class="container">
+  <h1>Créer une réservation</h1>
+
+  <% if (error) { %><p class="error"><%= error %></p><% } %>
+
+  <form method="POST" action="/reservations">
+    <label>Numéro du catway</label>
+    <input name="catwayNumber" type="number" min="1" required value="<%= reservation?.catwayNumber || '' %>" />
+
+    <label>Nom du client</label>
+    <input name="clientName" required value="<%= reservation?.clientName || '' %>" />
+
+    <label>Nom du bateau</label>
+    <input name="boatName" required value="<%= reservation?.boatName || '' %>" />
+
+    <label>Date de début</label>
+    <input name="startDate" type="date" required value="<%= reservation?.startDate || '' %>" />
+
+    <label>Date de fin</label>
+    <input name="endDate" type="date" required value="<%= reservation?.endDate || '' %>" />
+
+    <button type="submit">Créer</button>
+  </form>
+
+  <p><a href="/reservations">← Retour</a></p>
+</main>
+
+</body></html>
